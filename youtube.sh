@@ -40,7 +40,7 @@ then
     format="-f 303+251"
 elif [ "$format" == "fullhdmp4" ]
 then
-    format="-f 299+140" ]
+format="-f 299+140" ]
 elif [ "$format" == "4k" ]
 then
     format="-f 315+251"

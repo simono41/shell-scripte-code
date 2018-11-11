@@ -3,7 +3,7 @@
 set -xe
 
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 1>&2
+    echo "This script must be run as root" 1>&2
     sudo $0
     exit 0
 fi
@@ -11,10 +11,10 @@ fi
 apt update
 apt upgrade -y
 apt install hedgewars minetest minetest-server teeworlds teeworlds-server \
-mumble mumble-server freeciv gnome-chess \
-gnuchess inkscape gimp ffmpeg flac git htop android-tools-adb \
-android-tools-fastboot \
-qemu-system btrfs-tools nvidia-367 nvidia-settings -y
+    mumble mumble-server freeciv gnome-chess \
+    gnuchess inkscape gimp ffmpeg flac git htop android-tools-adb \
+    android-tools-fastboot \
+    qemu-system btrfs-tools nvidia-367 nvidia-settings -y
 nvidia-xconfig
 
 add-apt-repository ppa:obsproject/obs-studio

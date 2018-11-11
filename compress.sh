@@ -5,33 +5,33 @@ set -ex
 archiv=$2
 
 if [ "make" == "$1" ]; then
-  while (( "$(expr $# - 2)" ))
+    while (( "$(expr $# - 2)" ))
     do
 
-  dateien="$3 ${dateien}"
+        dateien="$3 ${dateien}"
 
-  shift
+        shift
 
-  done
+    done
 
-  tar -cf ${archiv}.tar ${dateien}
-  pixz ${archiv}.tar ${archiv}.tar.pxz
+    tar -cf ${archiv}.tar ${dateien}
+    pixz ${archiv}.tar ${archiv}.tar.pxz
 
-  # säuberung
-  rm ${archiv}.tar
+    # säuberung
+    rm ${archiv}.tar
 elif [ "restore" == "$1" ]; then
 
-  pixz -d ${archiv} ${archiv/.pxz*}
+    pixz -d ${archiv} ${archiv/.pxz*}
 
-  tar -xf ${archiv/.pxz*}
+    tar -xf ${archiv/.pxz*}
 
-  # säuberung
-  rm ${archiv/.pxz*}
+    # säuberung
+    rm ${archiv/.pxz*}
 else
-  echo "tar.pxz compress-script"
-  echo "./compress.sh make/restore archivname input/output"
-  echo "./compress.sh make archivname daten"
-  echo "./compress.sh restore archivname"
-  echo "or use"
-  echo "tar -Ipixz -cf output.tpxz dir  # Make tar use pixz automatically"
+    echo "tar.pxz compress-script"
+    echo "./compress.sh make/restore archivname input/output"
+    echo "./compress.sh make archivname daten"
+    echo "./compress.sh restore archivname"
+    echo "or use"
+    echo "tar -Ipixz -cf output.tpxz dir  # Make tar use pixz automatically"
 fi

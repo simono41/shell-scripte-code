@@ -7,13 +7,13 @@ set -ex
 i=0
 for wort in $finds
 do
-        echo "$wort"
+    echo "$wort"
 
-        FILENAME=${wort##*/} # Dateiname ist alles ab dem letzten '/'
-        echo "$FILENAME"
+    FILENAME=${wort##*/} # Dateiname ist alles ab dem letzten '/'
+    echo "$FILENAME"
 
-        cp $wort ""$2""$i""-""$FILENAME""
-        i=$(expr ${i} + 1)
+    cp $wort ""$2""$i""-""$FILENAME""
+    i=$(expr ${i} + 1)
 done
 
 sync
