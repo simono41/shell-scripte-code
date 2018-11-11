@@ -3,8 +3,8 @@
 BEFEHL=$1
 
 if [ -f /system/xbin/$BEFEHL ]; then
-  echo "Überschreibe /system/xbin/$BEFEHL"
-  rm /system/xbin/$BEFEHL
+    echo "Überschreibe /system/xbin/$BEFEHL"
+    rm /system/xbin/$BEFEHL
 fi
 
 mount -o rw,remount /system

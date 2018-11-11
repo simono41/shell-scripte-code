@@ -7,6 +7,6 @@ SERVICE=openvpn-client@client.service
 
 if [ "`systemctl is-active $SERVICE`" != "active" ]
 then
-  echo "$SERVICE wasnt running so attempting restart"
+    echo "$SERVICE wasnt running so attempting restart"
 fi
 echo "$SERVICE is currently running"

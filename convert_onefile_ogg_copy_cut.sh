@@ -14,23 +14,23 @@ i=0
 while (( "$#" ))
 do
 
-        #cutter
-        if [ "$create" == "$i" ]; then
-          create="$(expr $create + $files)"
-          name="$(expr $name + 1)"
-        fi
-        i="$(expr $i + 1)"
+    #cutter
+    if [ "$create" == "$i" ]; then
+        create="$(expr $create + $files)"
+        name="$(expr $name + 1)"
+    fi
+    i="$(expr $i + 1)"
 
 
-        cd "${1%/*}" # gehe ins Verzeichnis
+    cd "${1%/*}" # gehe ins Verzeichnis
 
-        FILENAME=${1##*/} # Dateiname ist alles ab dem letzten '/'
-        echo "$FILENAME"
-        # guck dir die Ausgabe erstmal an - wenn alles passt kannst Du das "echo" weglassen
-        # ffmpeg -i "$FILENAME" -vn -n -c:a libvorbis -b:a 192k "${FILENAME%.*}.ogg"
-        cat "${FILENAME%.*}.ogg" >> onefile"$name".ogg
-        shift
-        cd -
+    FILENAME=${1##*/} # Dateiname ist alles ab dem letzten '/'
+    echo "$FILENAME"
+    # guck dir die Ausgabe erstmal an - wenn alles passt kannst Du das "echo" weglassen
+    # ffmpeg -i "$FILENAME" -vn -n -c:a libvorbis -b:a 192k "${FILENAME%.*}.ogg"
+    cat "${FILENAME%.*}.ogg" >> onefile"$name".ogg
+    shift
+    cd -
 done
 
 #convert.sh <Ordner>/*.flv

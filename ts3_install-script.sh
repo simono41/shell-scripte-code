@@ -8,7 +8,7 @@ sudo adduser TeamSpeak --system --home /usr/local/bin/teamspeak3-server_linux_am
 
 echo "Schritt 2: Als TeamSpeak-User agieren"
 
-su TeamSpeak --shell /bin/bash 
+su TeamSpeak --shell /bin/bash
 
 echo "Schritt 3: Herunterladen und entpacken"
 
@@ -21,7 +21,7 @@ cd ~
 echo "Schritt 3: Konfiguration erstellen"
 
 ./ts3server createinifile=1
-touch query_ip_blacklist.txt query_ip_whitelist.txt 
+touch query_ip_blacklist.txt query_ip_whitelist.txt
 
 echo "Schritt 4: TS3-Server starten"
 

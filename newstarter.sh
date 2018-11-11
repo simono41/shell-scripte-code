@@ -2,11 +2,11 @@
 numscreens=3
 count=0
 if [ -z $1 ] ; then
-./X-Plane-x86_64 --monitor_bounds=0,0,1920,1080,1920,0,1920,1080,3840,0,1920,1080 &
- while [  $count -lt $numscreens ]; do
-    sleep 1
-    count=$( wmctrl -l | grep X-System | wc -l)
- done
+    ./X-Plane-x86_64 --monitor_bounds=0,0,1920,1080,1920,0,1920,1080,3840,0,1920,1080 &
+    while [  $count -lt $numscreens ]; do
+        sleep 1
+        count=$( wmctrl -l | grep X-System | wc -l)
+    done
 fi
 screencount=1
 wmctrl -l | grep X-Syst |awk '{ print $1 }' | while read ; do
