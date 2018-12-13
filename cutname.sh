@@ -5,12 +5,9 @@ set -x
 while (( "$#" ))
 do
 
-    FILENAME=${1%%-*}
-
-    mv ${1} ${FILENAME}
+    mv ${1} ${1%%-*}
 
     shift
-    cd -
 done
 
 #./cutname.sh <Ordner>/*-*
