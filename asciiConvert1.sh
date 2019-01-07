@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 : ${1?"Aufruf: $0 <ascii text Datei>"}
 while read line; do

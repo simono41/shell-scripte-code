@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Secure OpenVPN server installer for Debian, Ubuntu, CentOS and Arch Linux
 # https://github.com/Angristan/OpenVPN-install

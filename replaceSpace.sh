@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/env bash
 # Name: replaceSpace
 # Ersetzt Leerzeichen in Datei- bzw. Verzeichnisnamen durch '_'
 space=' '

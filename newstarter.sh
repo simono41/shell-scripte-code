@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 numscreens=3
 count=0
 if [ -z $1 ] ; then

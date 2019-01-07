@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 read -p "SSH remote host (hostname or ip address): " host;
 #

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 finds=$(find -name $1)
 
