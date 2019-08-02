@@ -21,7 +21,7 @@ git config --global core.editor "nano"
 git config --global user.email "${1}"
 git config --global user.name "${1}"
 git config --global push.default simple
-git config --local core.sshCommand "/usr/bin/ssh -i $HOME/.ssh/id_rsa"
+git config --local core.sshCommand "ssh -i $HOME/.ssh/id_rsa"
 git branch --set-upstream-to=origin/master master
 git status
 git add --all
