@@ -1,0 +1,1 @@
+ssh -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa $*
