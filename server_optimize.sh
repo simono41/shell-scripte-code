@@ -98,3 +98,4 @@ makefail2ban
 sleep 1
 makeuser
 sleep 1
+userloginalert
