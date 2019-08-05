@@ -60,6 +60,7 @@ function makefail2ban() {
 }
 
 function makeuser() {
+    apt install sudo
     if ! cat /etc/group | grep wheel; then
         groupadd wheel
     fi
