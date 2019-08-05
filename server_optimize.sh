@@ -90,10 +90,10 @@ echo
 function dailyupdates() {
 
     echo "#!/bin/bash" > /etc/cron.daily/update-packages
-    echo -n "apt update && apt upgrade -y" >> /etc/cron.daily/update-packages
+    echo "apt update && apt upgrade -y" >> /etc/cron.daily/update-packages
     echo "ROOT" >> /etc/cron.daily/update-packages
     echo "EXITVALUE=\$?" >> /etc/cron.daily/update-packages
-    echo "if [ \$EXITVALUE != 0 ]; then" >> $/etc/cron.daily/update-packages
+    echo "if [ \$EXITVALUE != 0 ]; then" >> /etc/cron.daily/update-packages
     echo "    /usr/bin/logger -t update-packages \"ALERT exited abnormally with [\$EXITVALUE]\"" >> /etc/cron.daily/update-packages
     echo "fi" >> /etc/cron.daily/update-packages
     echo "exit \$EXITVALUE" >> /etc/cron.daily/update-packages
