@@ -54,14 +54,14 @@ function makesshsecure() {
 
 function makeiptables() {
 
-    apt install iptables-persistent
+    apt install iptables-persistent -y
 
     iptables-save > /etc/iptables/rules.v4
     ip6tables-save > /etc/iptables/rules.v6
 }
 
 function makefail2ban() {
-    apt install fail2ban
+    apt install fail2ban -y
 
     cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 
@@ -75,6 +75,21 @@ function makeuser() {
     adduser user1 wheel
 }
 
+function userloginalert() {
+
+apt install finger -y
+echo "#!/bin/bash
+
+echo "Login auf $(hostname) am $(date +%Y-%m-%d) um $(date +%H:%M)"
+echo "Benutzer: $USER"
+echo
+finger" >> /opt/shell-login.sh
+
+echo "/opt/shell-login.sh | mailx -s "SSH-Log-in auf ihrem Server $(cat /etc/hostname)" bahn01@online.de" > /etc/profile
+chmod 755 /opt/shell-login.sh
+
+}
+
 makesshsecure
 sleep 1
 makeiptables
@@ -82,3 +97,4 @@ sleep 1
 makefail2ban
 sleep 1
 makeuser
+sleep 1
