@@ -20,9 +20,6 @@ if [[ $EUID -ne 0 ]]; then
 else
     echo "Als ROOT angemeldet!!!"
 fi
-echo "Als root Angemeldet"
-
-sleep 5
 
 function makesshsecure() {
 
@@ -67,7 +64,7 @@ function makeuser() {
         groupadd wheel
     fi
     echo "root ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
-    echo "%wheel ALL=(ALL)" >> /etc/sudoers
+    echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
     adduser user1
     adduser user1 wheel
 }
