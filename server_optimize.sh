@@ -89,8 +89,6 @@ echo
 
 function dailyupdates() {
 
-    apt install fcron -y
-
     echo "#!/bin/bash" > /etc/cron.daily/update-packages
     echo -n "apt update && apt upgrade -y" >> /etc/cron.daily/update-packages
     echo "ROOT" >> /etc/cron.daily/update-packages
