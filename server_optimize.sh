@@ -72,15 +72,16 @@ function makeuser() {
 
 function userloginalert() {
 
-    apt install finger -y
+    apt install s-nail -y
+
     echo "#!/bin/bash
 
 echo "Login auf $(hostname) am $(date +%Y-%m-%d) um $(date +%H:%M)"
 echo "Benutzer: $USER"
 echo
-    finger" >> /opt/shell-login.sh
+    pinky" >> /opt/shell-login.sh
 
-    echo "/opt/shell-login.sh | mailx -s "SSH-Log-in auf ihrem Server $(cat /etc/hostname)" bahn01@online.de" > /etc/profile
+    echo "/opt/shell-login.sh | mailx -s "SSH-Log-in auf ihrem Server $(cat /etc/hostname)" simon.rieger@mailbox.org" > /etc/profile
     chmod 755 /opt/shell-login.sh
 
 }
