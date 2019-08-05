@@ -77,16 +77,32 @@ function makeuser() {
 
 function userloginalert() {
 
-apt install finger -y
-echo "#!/bin/bash
+    apt install finger -y
+    echo "#!/bin/bash
 
 echo "Login auf $(hostname) am $(date +%Y-%m-%d) um $(date +%H:%M)"
 echo "Benutzer: $USER"
 echo
-finger" >> /opt/shell-login.sh
+    finger" >> /opt/shell-login.sh
 
-echo "/opt/shell-login.sh | mailx -s "SSH-Log-in auf ihrem Server $(cat /etc/hostname)" bahn01@online.de" > /etc/profile
-chmod 755 /opt/shell-login.sh
+    echo "/opt/shell-login.sh | mailx -s "SSH-Log-in auf ihrem Server $(cat /etc/hostname)" bahn01@online.de" > /etc/profile
+    chmod 755 /opt/shell-login.sh
+
+}
+
+function dailyupdates() {
+
+    apt install fcron -y
+
+    echo "#!/bin/bash" >> /etc/cron.daily/update-packages
+    echo -n "apt update && apt upgrade -y" >> /etc/cron.daily/update-packages
+    echo "ROOT" >> ${mountpoint}/etc/cron.daily/update-packages
+    echo "EXITVALUE=\$?" >> ${mountpoint}/etc/cron.daily/update-packages
+    echo "if [ \$EXITVALUE != 0 ]; then" >> ${mountpoint}/etc/cron.daily/update-packages
+    echo "    /usr/bin/logger -t update-packages \"ALERT exited abnormally with [\$EXITVALUE]\"" >> /etc/cron.daily/update-packages
+    echo "fi" >> ${mountpoint}/etc/cron.daily/update-packages
+    echo "exit \$EXITVALUE" >> ${mountpoint}/etc/cron.daily/update-packages
+    chmod +x  ${mountpoint}/etc/cron.daily/update-packages
 
 }
 
@@ -99,3 +115,5 @@ sleep 1
 makeuser
 sleep 1
 userloginalert
+sleep 1
+dailyupdates
