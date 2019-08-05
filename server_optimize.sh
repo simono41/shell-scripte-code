@@ -5,6 +5,14 @@ set -ex
 version="${1}"
 [[ -z "${version}" ]] && version="${hostname#*-}"
 
+# while-schleife
+while (( "$#" ))
+do
+    echo ${1}
+    export ${1}="y"
+    shift
+done
+
 if [[ $EUID -ne 0 ]]; then
     echo "This script must be run as root" 1>&2
     sudo "$0" "$1" "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9"
@@ -13,6 +21,8 @@ else
     echo "Als ROOT angemeldet!!!"
 fi
 echo "Als root Angemeldet"
+
+sleep 5
 
 function makesshsecure() {
 
@@ -53,7 +63,12 @@ function makefail2ban() {
 }
 
 function makeuser() {
+    if ! cat /etc/group | grep wheel; then
+        groupadd wheel
+    fi
+    echo "root ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
     echo "%wheel ALL=(ALL)" >> /etc/sudoers
+    adduser user1
     adduser user1 wheel
 }
 
@@ -88,14 +103,21 @@ function dailyupdates() {
 
 }
 
-makesshsecure
-sleep 1
-makeiptables
-sleep 1
-makefail2ban
-sleep 1
-makeuser
-sleep 1
-userloginalert
-sleep 1
-dailyupdates
+if [ "${makesshsecure}" == "y" ] || [ "${all}" == "y" ]; then
+    makesshsecure
+fi
+if [ "${makeiptables}" == "y" ] || [ "${all}" == "y" ]; then
+    makeiptables
+fi
+if [ "${makefail2ban}" == "y" ] || [ "${all}" == "y" ]; then
+    makefail2ban
+fi
+if [ "${makeuser}" == "y" ] || [ "${all}" == "y" ]; then
+    makeuser
+fi
+if [ "${userloginalert}" == "y" ] || [ "${all}" == "y" ]; then
+    userloginalert
+fi
+if [ "${dailyupdates}" == "y" ] || [ "${all}" == "y" ]; then
+    dailyupdates
+fi
