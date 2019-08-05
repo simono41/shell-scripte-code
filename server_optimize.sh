@@ -14,24 +14,6 @@ else
 fi
 echo "Als root Angemeldet"
 
-if [ -z "${hostname}" ]; then
-    if [ -f "/usr/bin/systemctl" ]; then
-        if [ -f "/etc/hostname.example" ]; then
-            hostname="$(cat /etc/hostname.example)"
-        else
-            cp /etc/hostname /etc/hostname.example
-            hostname="$(cat /etc/hostname)"
-        fi
-    else
-        if ! [ -f "/etc/conf.d/hostname.example" ]; then
-            cp /etc/conf.d/hostname /etc/conf.d/hostname.example
-        fi
-        temphostname="$(cat /etc/conf.d/hostname.example)"
-        #hostname="${temphostname%?}"
-        hostname="${temphostname:10:$((${#temphostname})) - 11}"
-    fi
-fi
-
 function makesshsecure() {
 
     #sshd -T |grep permitrootlogin
