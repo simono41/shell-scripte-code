@@ -112,9 +112,9 @@ fi
 if [ "${makeuser}" == "y" ] || [ "${all}" == "y" ]; then
     makeuser
 fi
-if [ "${userloginalert}" == "y" ] || [ "${all}" == "y" ]; then
-    userloginalert
-fi
+#if [ "${userloginalert}" == "y" ] || [ "${all}" == "y" ]; then
+#    userloginalert
+#fi
 if [ "${dailyupdates}" == "y" ] || [ "${all}" == "y" ]; then
     dailyupdates
 fi
