@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 if [ "$1" == "--help" ] || [[ -z "$1" ]]
 then
