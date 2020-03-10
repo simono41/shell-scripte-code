@@ -35,4 +35,6 @@ if ! GIT_SSH_COMMAND="ssh -oPort=1022" git push "${push}" "${branch}"; then
     echo "Konnte keine neuen Daten zum Server pushen!!!"
 fi
 git status
-git pull
+if ! GIT_SSH_COMMAND="ssh -oPort=1022" git pull "${push}" "${branch}"; then
+    echo "Konnte keine neuen Daten vom Server hollen!!!"
+fi
