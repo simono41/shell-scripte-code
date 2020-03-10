@@ -17,20 +17,21 @@ push="${3}"
 branch="${4}"
 [[ -z "${branch}" ]] && branch="master"
 
-git config --global core.editor "nano"
+git config --global core.editor "vim"
 git config --global user.email "${1}"
 git config --global user.name "${1}"
 git config --global push.default simple
+git config --global credential.helper store
 git config --local core.sshCommand "ssh -i $HOME/.ssh/id_rsa"
-git branch --set-upstream-to=origin/master master
+#git branch --set-upstream-to=origin/master master
 git status
 git add --all
 git commit --all -m "${2}"
 git show
-if ! GIT_TRACE=1 GIT_SSH="$PWD/ssh" git pull "${push}" "${branch}"; then
+if ! GIT_SSH_COMMAND="ssh -oPort=1022" git pull "${push}" "${branch}"; then
     echo "Konnte keine neuen Daten vom Server hollen!!!"
 fi
-if ! GIT_TRACE=1 GIT_SSH="$PWD/ssh" git push "${push}" "${branch}"; then
+if ! GIT_SSH_COMMAND="ssh -oPort=1022" git push "${push}" "${branch}"; then
     echo "Konnte keine neuen Daten zum Server pushen!!!"
 fi
 git status
