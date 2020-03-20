@@ -28,13 +28,13 @@ git status
 git add --all
 git commit --all -m "${2}"
 git show
-if ! GIT_SSH_COMMAND="ssh -oPort=1022" git pull "${push}" "${branch}"; then
+if ! git pull "${push}" "${branch}"; then
     echo "Konnte keine neuen Daten vom Server hollen!!!"
 fi
-if ! GIT_SSH_COMMAND="ssh -oPort=1022" git push --set-upstream "${push}" "${branch}"; then
+if ! git push --set-upstream "${push}" "${branch}"; then
     echo "Konnte keine neuen Daten zum Server pushen!!!"
 fi
 git status
-if ! GIT_SSH_COMMAND="ssh -oPort=1022" git pull "${push}" "${branch}"; then
+if ! git pull "${push}" "${branch}"; then
     echo "Konnte keine neuen Daten vom Server hollen!!!"
 fi
