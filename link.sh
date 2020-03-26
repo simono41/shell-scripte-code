@@ -7,5 +7,5 @@ if [ -f /system/xbin/$BEFEHL ]; then
     rm /system/xbin/$BEFEHL
 fi
 
-mount -o rw,remount /system
-ln -s /data/data/com.termux/files/usr/bin/$BEFEHL /system/xbin/
+#mount -o rw,remount /system
+ln -s /data/data/com.termux/files/usr/bin/$BEFEHL /sbin/
