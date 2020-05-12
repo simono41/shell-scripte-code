@@ -14,10 +14,13 @@ format="$2"
 
 if [ "$format" == "opus" ]
 then
-    format="-f 251"
+    format="-f 251 -x --audio-quality 0 --audio-format opus"
 elif [ "$format" == "m4a" ]
 then
-    format="-f 140"
+    format="-f 140 -x --audio-quality 0 --audio-format m4a"
+elif [ "$format" == "mp4" ]
+then
+    format="-f 140 -x --audio-quality 0 --audio-format mp4"
 elif [ "$format" == "video" ]
 then
     format="-f 43"
