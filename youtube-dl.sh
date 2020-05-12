@@ -14,13 +14,17 @@ format="$2"
 
 if [ "$format" == "opus" ]
 then
-    format="-f 251 -x --audio-quality 0 --audio-format opus"
+    format="--audio-format opus"
+    audio="-x"
+    quality="--audio-quality 0"
 elif [ "$format" == "m4a" ]
 then
-    format="-f 140 -x --audio-quality 0 --audio-format m4a"
+    format="--audio-format m4a"
+    audio="-x"
 elif [ "$format" == "mp4" ]
 then
-    format="-f 140 -x --audio-quality 0 --audio-format mp4"
+    format="--audio-format mp4"
+    audio="-x"
 elif [ "$format" == "video" ]
 then
     format="-f 43"
@@ -35,4 +39,4 @@ then
     format="-f 315+251"
 fi
 
-youtube-dl -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames $format $url
+youtube-dl -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames $format $audio $quality $url
