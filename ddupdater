@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -ex
+
+KEYAUTH="6f175582d2a6ee1443e165fc40b7f051"
+HOSTNAME="spectreos.ddnss.de"
+PFAD="/home/pi"
+ALLHOST="all" # Alternativ Hostname
+DATUM=`date +%Y-%m-%d\ %H:%M:%S`
+IPV4=`curl https://ip4.code-planet.de/meineip.php | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'`
+if [ -f "$PFAD/updipv4.txt" ]; then UPDIPV4=`cat $PFAD/updipv4.txt; fi
+IPV6=`curl https://ip6.code-planet.de/meineip.php | grep -oE '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'`
+if [ -f "$PFAD/updipv6.txt" ]; then UPDIPV6=`cat $PFAD/updipv6.txt; fi
+
+echo "Aktuelle IPV4=$UPDIPV4"
+echo "Aktuelle IPV6=$UPDIPV6"
+
+if [ "$IPV4" == "$UPDIPV4" ]; then
+   echo "$DATUM - IPV4 is gleich - KEIN UPDATE" >> $PFAD/log.txt
+elif [ "$IPV6" == "$UPDIPV6" ]; then
+   echo "$DATUM - IPV6 is gleich - KEIN UPDATE" >> $PFAD/log.txt
+else
+   echo "$DATUM - Neue-IPV4: $ip / Alte-IPV4: $UPDIPV4 - UPDATE!" >> $PFAD/log.txt
+   echo "$DATUM - Neue-IPV6: $ip / Alte-IPV6: $UPDIPV6 - UPDATE!" >> $PFAD/log.txt
+   echo $IPV4 > $PFAD/updipv4.txt
+   echo $IPV6 > $PFAD/updipv6.txt
+
+   curl 'https://www.ddnss.de/upd.php?key='$KEYAUTH'&host='$HOSTNAME'&ip='$IPV4'&ipv6='$IPV6''>> $PFAD/log.txt
+   echo " " >> $PFAD/log.txt
+
+   echo "Update ..."
+fi
