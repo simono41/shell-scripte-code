@@ -22,8 +22,8 @@ if [ "$IPV4" == "$UPDIPV4" ]; then
 elif [ "$IPV6" == "$UPDIPV6" ]; then
    echo "$DATUM - IPV6 is gleich - KEIN UPDATE" >> $PFAD/log.txt
 else
-   echo "$DATUM - Neue-IPV4: $ip / Alte-IPV4: $UPDIPV4 - UPDATE!" >> $PFAD/log.txt
-   echo "$DATUM - Neue-IPV6: $ip / Alte-IPV6: $UPDIPV6 - UPDATE!" >> $PFAD/log.txt
+   echo "$DATUM - Neue-IPV4: $IPV4 / Alte-IPV4: $UPDIPV4 - UPDATE!" >> $PFAD/log.txt
+   echo "$DATUM - Neue-IPV6: $IPV6 / Alte-IPV6: $UPDIPV6 - UPDATE!" >> $PFAD/log.txt
    echo $IPV4 > $PFAD/updipv4.txt
    echo $IPV6 > $PFAD/updipv6.txt
 
