@@ -1,0 +1,1 @@
+C:\Portable\vcxsrv-20210313T152830Z-001\vcxsrv\vcxsrv.exe :0 -nodecoration -wgl -ac -silent-dup-error
