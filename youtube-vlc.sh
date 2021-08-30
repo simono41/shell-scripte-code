@@ -47,10 +47,10 @@ fi
 video=""
 if [ "$suche" == "suche" ]
 then
-    if ! youtube-dl "ytsearch:$url" -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist $format $url; then
+    if ! youtube-dl "ytsearch:$url" -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist $format; then
         echo "Download fehlgeschlagen"
     fi
-    video=$(youtube-dl "ytsearch:$url" -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist --get-filename $format $url)
+    video=$(youtube-dl "ytsearch:$url" -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist --get-filename $format)
 else
     if ! youtube-dl -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist $format $url; then
         echo "Download fehlgeschlagen"
