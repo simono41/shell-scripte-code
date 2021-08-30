@@ -5,12 +5,12 @@ set -ex
 if [ "$1" == "--help" ] || [[ -z "$1" ]]
 then
     echo "bitte alles kleinschreiben"
-    echo "bash ./youtube-dl.sh suche/NOSUCHE URL/SUCHE FORMAT"
+    echo "bash ./youtube-dl.sh suche/search URL/stichwort FORMAT"
     echo "Formate: [opus/m4a/video/hd/fullhd/fullhdmp4/4k/FORMAT]"
     exit 0
 fi
 
-if [ "$1" == "suche" ] || [ "$1" == "nosuche" ]; then
+if [ "$1" == "suche" ] || [ "$1" == "search" ]; then
     suche="$1"
     url="$2"
     format="$3"
@@ -45,15 +45,17 @@ elif [ -n "$format" ]; then
 fi
 
 video=""
-if [ "$suche" == "suche" ]
+if [ "$suche" == "suche" ] || [ "$suche" == "search" ]
 then
     if ! youtube-dl "ytsearch:$url" -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist $format; then
         echo "Download fehlgeschlagen"
+        exit 1
     fi
     video=$(youtube-dl "ytsearch:$url" -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist --get-filename $format)
 else
     if ! youtube-dl -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist $format $url; then
         echo "Download fehlgeschlagen"
+        exit 1
     fi
     video=$(youtube-dl -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist --get-filename $format $url)
 fi
@@ -62,4 +64,5 @@ if [ "${video}" != "" ]; then
     vlc.exe ${video}
 else
     echo "Konnte Video nicht finden"
+    exit 1
 fi
