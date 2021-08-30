@@ -59,7 +59,7 @@ else
 fi
 
 if [ "${video}" != "" ]; then
-    vlc.exe ${video}
+    vlc ${video}
 else
     echo "Konnte Video nicht finden"
 fi

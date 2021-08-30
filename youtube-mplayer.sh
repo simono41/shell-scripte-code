@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 if [ "$1" == "--help" ] || [[ -z "$1" ]]
 then
@@ -18,6 +18,10 @@ else
     url="$1"
     format="$2"
 fi
+
+#read -p "Wie ist die URL/suche? : " url
+#read -p "Wo sollen die Dateien heruntergeladen werden? : " pfad
+#read -p "Soll ein Video heruntergeladen werden oder Audio? [opus/m4a/video/hd/fullhd/4k] : " format
 
 if [ "$format" == "opus" ]
 then
@@ -44,22 +48,9 @@ elif [ -n "$format" ]; then
     format="-f $format"
 fi
 
-video=""
 if [ "$suche" == "suche" ]
 then
-    if ! youtube-dl "ytsearch:$url" -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist $format $url; then
-        echo "Download fehlgeschlagen"
-    fi
-    video=$(youtube-dl "ytsearch:$url" -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist --get-filename $format $url)
+    youtube-dl "ytsearch:$url" -q --force-ipv4 $format -o- | mplayer -fs -cache 8192 -
 else
-    if ! youtube-dl -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist $format $url; then
-        echo "Download fehlgeschlagen"
-    fi
-    video=$(youtube-dl -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --no-playlist --get-filename $format $url)
-fi
-
-if [ "${video}" != "" ]; then
-    vlc.exe ${video}
-else
-    echo "Konnte Video nicht finden"
+    youtube-dl -q --force-ipv4 $format -o- $url | mplayer -fs -cache 8192 -
 fi
