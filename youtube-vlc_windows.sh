@@ -6,7 +6,7 @@ if [ "$1" == "--help" ] || [[ -z "$1" ]]
 then
     echo "bitte alles kleinschreiben"
     echo "bash ./youtube-dl.sh suche/search URL/stichwort FORMAT"
-    echo "Formate: [opus/m4a/video/hd/fullhd/fullhdmp4/4k/FORMAT]"
+    echo "Formate: [opus/m4a/video/hd/hdmp4/fullhd/fullhdmp4/4k/FORMAT]"
     exit 0
 fi
 
@@ -31,6 +31,9 @@ then
 elif [ "$format" == "hd" ]
 then
     format="-f 247+251"
+elif [ "$format" == "hdmp4" ]
+then
+    format="-f 22"
 elif [ "$format" == "fullhd" ]
 then
     format="-f 303+251"
