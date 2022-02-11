@@ -1,1 +1,2 @@
-ocrmypdf -l deu --force-ocr $1 $1
+file=$1
+ocrmypdf -l deu --force-ocr --jbig2-lossy ${file} ${file%.*}-ocr.pdf
