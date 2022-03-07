@@ -1,0 +1,3 @@
+[wsl2]
+memory=1GB   # Limits VM memory in WSL 2 up to 1GB
+swap=0
