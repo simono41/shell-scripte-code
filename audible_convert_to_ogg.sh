@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-code="$1"
-shift
+read -p "Wie heißen die activation_bytes? : " code
 
 while (( "$#" ))
 do
@@ -11,7 +10,7 @@ do
     FILENAME=${1##*/} # Dateiname ist alles ab dem letzten '/'
     echo "$FILENAME"
     # guck dir die Ausgabe erstmal an - wenn alles passt kannst Du das "echo" weglassen
-    ffmpeg -activation_bytes $code -i "$FILENAME" -vn -n -c:a libvorbis -b:a 128k "${FILENAME%.*}.ogg" &
+    ffmpeg -activation_bytes $code -i "$FILENAME" -vn -n -c:a libvorbis -b:a 128k "${FILENAME%.*}.ogg"
     shift
     cd -
 done
