@@ -39,4 +39,4 @@ then
     format="-f 315+251"
 fi
 
-yt-dlp -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames $format $audio $quality $url
+yt-dlp -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --embed-thumbnail $format $audio $quality $url
