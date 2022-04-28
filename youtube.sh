@@ -2,7 +2,7 @@
 
 set -ex
 
-if [ "$1" == "--help" ] || [[ -z "$1" ]]
+if [ "$1" == "--help" ]
 then
     echo "bash ./youtube-dl.sh URL FORMAT"
     echo "Formate: [opus/m4a/video/hd/fullhd/4k]"
@@ -11,6 +11,9 @@ fi
 
 url="$1"
 format="$2"
+
+[[ -z "${url}" ]] && read -p "URL: " url
+[[ -z "${format}" ]] && read -p "Format [opus/m4a/video/hd/fullhd/4k]: " format
 
 if [ "$format" == "opus" ]
 then
