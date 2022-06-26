@@ -1,0 +1,8 @@
+label: dos
+label-id: 0xc8b2f8b8
+device: /dev/sdd
+unit: sectors
+sector-size: 512
+
+/dev/sdd1 : start=        2048, size=      409600, type=c
+/dev/sdd2 : start=      411648, size=    60655616, type=83
