@@ -7,3 +7,5 @@ test apk.apk
 test apk1.apk
 xnee.xns
 out.txt
+boot
+root

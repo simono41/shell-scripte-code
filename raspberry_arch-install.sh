@@ -33,17 +33,17 @@ echo "Create and mount the FAT filesystem..."
 
 sleep 5
 
-mkfs.vfat /dev/sdX1
+mkfs.vfat ${device}${bootpartitionnummer}
 mkdir boot
-mount /dev/sdX1 boot
+mount ${device}${bootpartitionnummer} boot
 
 echo "Create and mount the ext4 filesystem..."
 
 sleep 5
 
-mkfs.ext4 /dev/sdX2
+mkfs.ext4 ${device}${rootpartitionnummer}
 mkdir root
-mount /dev/sdX2 root
+mount ${device}${rootpartitionnummer} root
 
 echo "Download and extract the root filesystem..."
 
