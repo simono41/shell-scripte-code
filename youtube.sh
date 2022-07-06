@@ -20,7 +20,7 @@ then
     format="--audio-format opus"
     audio="-x"
     quality="--audio-quality 0"
-elif [ "$format" == "m4a" ]
+elif [ "$format" == "flac" ]
 then
     format="--audio-format flac"
     audio="-x"
