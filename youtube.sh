@@ -13,11 +13,16 @@ url="$1"
 format="$2"
 
 [[ -z "${url}" ]] && read -p "URL: " url
-[[ -z "${format}" ]] && read -p "Format [opus/m4a/video/hd/fullhd/4k]: " format
+[[ -z "${format}" ]] && read -p "Format [opus/flac/m4a/video/hd/fullhd/4k]: " format
 
 if [ "$format" == "opus" ]
 then
     format="--audio-format opus"
+    audio="-x"
+    quality="--audio-quality 0"
+elif [ "$format" == "m4a" ]
+then
+    format="--audio-format flac"
     audio="-x"
     quality="--audio-quality 0"
 elif [ "$format" == "m4a" ]
@@ -42,4 +47,4 @@ then
     format="-f 315+251"
 fi
 
-yt-dlp -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --embed-thumbnail $format $audio $quality $url
+yt-dlp -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --embed-thumbnail --embed-metadata $format $audio $quality $url
