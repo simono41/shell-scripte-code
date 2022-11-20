@@ -35,3 +35,7 @@ iptables -t nat -A POSTROUTING -d 192.168.2.86 -p tcp --dport 8081 -j SNAT --to-
 
 ### Find and Remove old Syncthing Files
 find -name "*.tmp" -exec rm -vf {} \;
+
+### Setzt das Repository auf dem aktuellen HEAD zurück und löscht neue Dateien die bis dahin erzeugt wurden
+
+git reset --hard 8& git clean -dfx
