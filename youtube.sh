@@ -47,4 +47,4 @@ then
     format="-f 315+251"
 fi
 
-yt-dlp -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --embed-thumbnail --embed-metadata --match-filter "!was_live" $format $audio $quality $url
+yt-dlp -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --embed-thumbnail --embed-metadata --match-filter "!was_live" $format $audio $quality -v $url
