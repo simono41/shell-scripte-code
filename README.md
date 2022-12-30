@@ -39,3 +39,7 @@ find -name "*.tmp" -exec rm -vf {} \;
 ### Setzt das Repository auf dem aktuellen HEAD zurück und löscht neue Dateien die bis dahin erzeugt wurden
 
 git reset --hard 8& git clean -dfx
+
+### Qemu chroot Raspberry PI
+pacman -S qemu-user-static qemu-user-static-binfmt
+https://wiki.archlinux.org/title/QEMU#Chrooting_into_arm/arm64_environment_from_x86_64

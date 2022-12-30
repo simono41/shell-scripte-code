@@ -66,10 +66,10 @@ echo "Download and extract the root filesystem..."
 
 sleep 5
 
-if ! [ -f "ArchLinuxARM-rpi-armv7-latest.tar.gz" ]; then
-    wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-armv7-latest.tar.gz
+if ! [ -f "ArchLinuxARM-rpi-aarch64-latest.tar.gz" ]; then
+    wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-aarch64-latest.tar.gz
 fi
-bsdtar -xpf ArchLinuxARM-rpi-armv7-latest.tar.gz -C root
+bsdtar -xpf ArchLinuxARM-rpi-aarch64-latest.tar.gz -C root
 sync
 
 echo "Move boot files to the first partition..."
