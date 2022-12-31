@@ -26,7 +26,7 @@ sleep 5
 bootpartitionnummer=1
 rootpartitionnummer=2
 
-fdisk /dev/sdd <<EOF
+fdisk ${device} <<EOF
 o
 p
 n
