@@ -1,0 +1,3 @@
+convmv --notest -fiso8859-16 -tutf8 -r .
+
+find /opt/backup/media -execdir convmv --notest -fiso8859-16 -tutf8 {} \;
