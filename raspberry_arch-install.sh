@@ -13,6 +13,9 @@ sfdisk -l
 read -p "Welches Laufwerk soll beschrieben werden?: [/dev/sda|/dev/sdb] " device
 [[ -z "${device}" ]] && echo "No device is set! Abort..." && exit 1
 
+read -p "If it is a Raspberry Pi version 3 or 4? : [3/4] " version
+[[ -z "${version}" ]] && echo "No Version is set! Abort..." && exit 1
+
 echo "Wipe Device ${device} ..."
 
 sleep 5
@@ -73,7 +76,9 @@ bsdtar -xpf ArchLinuxARM-rpi-aarch64-latest.tar.gz -C root
 sync
 
 # Before unmounting the partitions, update /etc/fstab for the different SD block device compared to the Raspberry Pi 3
-sed -i 's/mmcblk0/mmcblk1/g' root/etc/fstab
+if [ "${version}" -eq "4" ]; then
+    sed -i 's/mmcblk0/mmcblk1/g' root/etc/fstab
+fi
 
 echo "Move boot files to the first partition..."
 
