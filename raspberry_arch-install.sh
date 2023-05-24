@@ -77,10 +77,8 @@ echo "Move boot files to the first partition..."
 sleep 5
 
 mv root/boot/* boot
+sync
 
-echo "Unmount the two partitions..."
-
-sleep 5
-
+read -p "Weiter mit unmount..."
 umount boot root
 
