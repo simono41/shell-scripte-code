@@ -12,6 +12,9 @@ oder
 
 cat id_rsa.pub | ssh server 'cat>> ~/.ssh/authorized_keys'
 
+### Zum schreiben eines Passworts mittels eines virtuellen Keyboards
+sleep 5 && { echo typedelay 100; echo type ${PASSWORT}; } | DOTOOL_XKB_LAYOUT=de dotool && notify-send done
+
 ### Zum suchen der libinput Treiber mit
 libwacom-list-local-devices
 for wort in /usr/share/libwacom/*; do if cat $wort | grep CTL-4100WL; then echo $wort; fi; done
