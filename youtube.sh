@@ -6,14 +6,18 @@ if [ "$1" == "--help" ]
 then
     echo "bash ./youtube-dl.sh URL FORMAT"
     echo "Formate: [opus/m4a/video/hd/fullhd/4k]"
+    echo "Extra: (Zusätzliche Parameter)"
     exit 0
 fi
 
 url="$1"
 format="$2"
+extra="$3"
 
 [[ -z "${url}" ]] && read -p "URL: " url
 [[ -z "${format}" ]] && read -p "Format [opus/flac/m4a/mp4/video/hd/fullhd/4k]: " format
+echo "Wenn man für alle Playlisten Unterordner anlegen will: [-o %(playlist_title)s/%(title)s.%(ext)s] (Praktisch für Downloads ganzer Kanäle"
+[[ -z "${extra}" ]] && read -p "Sind noch zusätzliche Parameter gewünscht?: " extra
 
 if [ "$format" == "opus" ]
 then
@@ -55,4 +59,4 @@ then
     format="-S "res:2160" -f "bv+ba/b""
 fi
 
-yt-dlp -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --embed-thumbnail --embed-metadata --match-filter "!was_live" $format $audio $quality -v $url
+yt-dlp -i -c --socket-timeout 10000 --force-ipv4 --restrict-filenames --embed-thumbnail --embed-metadata --match-filter "!was_live" ${format} ${audio} ${quality} -v ${url} ${extra}
