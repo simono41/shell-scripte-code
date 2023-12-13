@@ -26,6 +26,8 @@ run deamon with:
 
 ~~~
 sudo ydotoold
+setxkbmap -query
+WAYLAND_DISPLAY=wayland-0 localectl set-x11-keymap de
 ~~~
 
 and run youre command
