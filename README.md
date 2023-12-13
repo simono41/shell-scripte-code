@@ -13,6 +13,12 @@ oder
 cat id_rsa.pub | ssh server 'cat>> ~/.ssh/authorized_keys'
 
 ### Zum schreiben eines Passworts mittels eines virtuellen Keyboards
+
+### ydotool
+sleep 5 && sudo ydotool type 'Hello world!' && notify-send finish
+
+### mit dotool
+
 sleep 5 && { echo typedelay 100; echo type ${PASSWORT}; } | DOTOOL_XKB_LAYOUT=de dotool && notify-send done
 
 ### Zum suchen der libinput Treiber mit
