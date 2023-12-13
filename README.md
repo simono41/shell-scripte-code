@@ -25,6 +25,7 @@ https://man.archlinux.org/man/ydotool.1
 run deamon with:
 
 ~~~
+sudo usermod -G wheel,uinput simono41
 sudo ydotoold
 setxkbmap -query
 WAYLAND_DISPLAY=wayland-0 localectl set-x11-keymap de
