@@ -2,8 +2,6 @@
 
 set -x
 
-#!/bin/bash
-
 # Pfad zum Basisverzeichnis der Musikdateien
 BASE_DIR="/media/music/Test-Gaming-Soundtracks"
 
@@ -17,12 +15,12 @@ for dir in "${directories[@]}"; do
     declare -A artist_count
 
     # Finde alle FLAC-Dateien im aktuellen Verzeichnis und lese die Artist-Tags
-    while IFS= read -r file; do
+    while IFS= read -r -d $'\0' file; do
         artist=$(metaflac --show-tag=ARTIST "$file" | sed 's/ARTIST=//')
         if [[ -n "$artist" ]]; then
             ((artist_count["$artist"]++))
         fi
-    done < <(find "$dir" -maxdepth 1 -type f -name '*.flac')
+    done < <(find "$dir" -maxdepth 1 -type f -name '*.flac' -print0)
 
     # Finde den am häufigsten vorkommenden Artist
     max_count=0
@@ -34,10 +32,17 @@ for dir in "${directories[@]}"; do
         fi
     done
 
-    # Entferne den alten Artist-Tag und setze den häufigsten Artist-Tag für alle Dateien im Verzeichnis
+    # Setze den häufigsten Artist-Tag für alle Dateien im Verzeichnis und füge ReplayGain hinzu
     if [[ -n "$common_artist" ]]; then
         echo "Häufigster Künstler in '$dir' ist: $common_artist"
-        find "$dir" -maxdepth 1 -type f -name '*.flac' -exec bash -c 'metaflac --remove-tag=ARTIST "$0" && metaflac --set-tag=ARTIST="'"$common_artist"'" "$0"' {} \;
+        find "$dir" -maxdepth 1 -type f -name '*.flac' -print0 | while IFS= read -r -d $'\0' file; do
+            metaflac --remove-tag=ARTIST "$file"
+            metaflac --set-tag=ARTIST="$common_artist" "$file"
+            # Entferne vorhandene ReplayGain-Tags
+            metaflac --remove-replay-gain "$file"
+            # Berechne und füge neue ReplayGain-Tags hinzu
+            metaflac --add-replay-gain "$file"
+        done
     else
         echo "Kein Künstler gefunden in '$dir'"
     fi
