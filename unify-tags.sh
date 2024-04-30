@@ -3,10 +3,13 @@
 set -x
 
 # Pfad zum Basisverzeichnis der Musikdateien
-BASE_DIR="/media/music-backup/Anime"
+BASE_DIR="/media/music/Soundtracks"
+
+# Sammle alle Verzeichnisse
+directories=($(find "$BASE_DIR" -type d -print))
 
 # Gehe durch jedes Unterverzeichnis
-find "$BASE_DIR" -type d -print0 | while IFS= read -r -d $'\0' dir; do
+for dir in "${directories[@]}"; do
     echo "Verarbeite Verzeichnis: $dir"
     # Initialisiere ein Assoziativ-Array für Künstlerzählungen
     declare -A artist_count
