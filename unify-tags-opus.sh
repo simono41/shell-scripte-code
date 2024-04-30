@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Broken because it removed the cover
+
 set -x
 
 # Pfad zum Basisverzeichnis der Musikdateien
