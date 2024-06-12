@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -ex
+
+# see
+# https://superuser.com/questions/1708793/add-art-cover-in-ogg-audio-file
+# https://xiph.org/flac/format.html#metadata_block_picture
+# https://github.com/navidrome/navidrome/issues/2445
+
+# Erstelle die vorbis.head Datei mit dem angegebenen Inhalt
+echo -en "\0\0\0\x03\0\0\0\x0aimage/jpeg\0\0\x01\x40cover.jpg\0\0\x01\x40\0\0\0\x0e\0\0\0\x20\0\0\0\0\0\0\x05\xad" \
+  > vorbis.head
+
+# Funktion, um Opus-Dateien zu verarbeiten
+process_opus_files() {
+    for file in "$1"/*.opus; do
+        if [[ -f "$file" ]]; then
+            # Extrahiere Cover
+            ffmpeg -i "$file" -an -vcodec mjpeg -vf scale=320:-1 cover.jpg
+
+            # Erstelle eine base64-kodierte Version des Cover-Bildes und vorbis.head
+            base64_cover=$(cat vorbis.head cover.jpg | base64 --wrap=0)
+
+            # Verwende ffmpeg, um das METADATA_BLOCK_PICTURE-Tag zur Opus-Datei hinzuzufügen
+            ffmpeg -hide_banner -i "$file" -metadata:s:a:0 "COMPILATION=1" -acodec copy -map 0:a -metadata:s:a METADATA_BLOCK_PICTURE="$base64_cover" "${file%.opus}_new.opus"
+
+            # Entferne Cover
+            rm cover.jpg
+
+            # Optional: Ersetze die Originaldatei durch die neue
+            mv "${file%.opus}_new.opus" "$file"
+        fi
+    done
+}
+
+# Exportiere die Funktion für die Verwendung mit find
+export -f process_opus_files
+
+# Verwende find, um die Funktion auf alle Opus-Dateien in allen Unterverzeichnissen auszuführen
+find . -type d -exec bash -c 'process_opus_files "$0"' {} \;
+
+# Bereinige die vorbis.head Datei
+rm vorbis.head
