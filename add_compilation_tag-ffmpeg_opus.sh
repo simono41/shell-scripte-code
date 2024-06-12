@@ -14,16 +14,16 @@ process_opus_files() {
             # Extrahiere Cover
             ffmpeg -i "$file" -an -vcodec mjpeg -vf scale=320:-1 cover.jpg
 
-# Berechne die Länge der Bilddaten in Bytes
-IMAGE_LENGTH=$(wc -c < cover.jpg)
+            # Berechne die Länge der Bilddaten in Bytes
+            IMAGE_LENGTH=$(wc -c < cover.jpg)
 
-# Konvertiere die Länge in Hexadezimalwert und dann in Big-Endian-Format
-IMAGE_LENGTH_HEX=$(printf '%08X' $IMAGE_LENGTH)
-IMAGE_LENGTH_BE=$(echo $IMAGE_LENGTH_HEX | sed 's/\(..\)/\\x\1/g')
+            # Konvertiere die Länge in Hexadezimalwert und dann in Big-Endian-Format
+            IMAGE_LENGTH_HEX=$(printf '%08X' $IMAGE_LENGTH)
+            IMAGE_LENGTH_BE=$(echo $IMAGE_LENGTH_HEX | sed 's/\(..\)/\\x\1/g')
 
-# Erstelle die vorbis.head Datei mit dem angegebenen Inhalt
-# Beachte: Die Länge der Bilddaten wird hier eingefügt
-echo -en "\0\0\0\x03\0\0\0\x0aimage/jpeg\0\0\0\x08test.jpg\0\0\0\x08\0\0\0\x0e\0\0\0\x20\0\0\0\0$IMAGE_LENGTH_BE" > vorbis.head
+            # Erstelle die vorbis.head Datei mit dem angegebenen Inhalt
+            # Beachte: Die Länge der Bilddaten wird hier eingefügt
+            echo -en "\0\0\0\x03\0\0\0\x0aimage/jpeg\0\0\0\x08test.jpg\0\0\0\x08\0\0\0\x0e\0\0\0\x20\0\0\0\0$IMAGE_LENGTH_BE" > vorbis.head
 
 
             # Erstelle eine base64-kodierte Version des Cover-Bildes und vorbis.head
