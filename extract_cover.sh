@@ -13,7 +13,7 @@ for dir in */; do
     # Wenn eine Musikdatei gefunden wurde
     if [[ -n "$first_music_file" ]]; then
         # Extrahiere das Coverbild
-        ffmpeg -y -i "$first_music_file" -an -vcodec copy folder.jpg
+        ffmpeg -y -i "$first_music_file" -an -vcodec copy artist.jpg
     fi
 
     # Gehe zurück ins Ausgangsverzeichnis
