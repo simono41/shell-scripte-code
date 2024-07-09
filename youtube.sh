@@ -16,7 +16,7 @@ extra="$3"
 
 [[ -z "${url}" ]] && read -p "URL: " url
 [[ -z "${format}" ]] && read -p "Format [opus/flac/m4a/mp4/video/hd/fullhd/4k]: " format
-echo "Wenn man für alle Playlisten Unterordner anlegen will: [-o %(playlist_title)s/%(title)s.%(ext)s] (Praktisch für Downloads ganzer Kanäle"
+echo "Wenn man für alle Playlisten Unterordner anlegen will: [-o %(playlist_title)s/%(title)s.%(ext)s/--cookies cookies.txt/--cookies-from-browser firefox] (Praktisch für Downloads ganzer Kanäle"
 [[ -z "${extra}" ]] && read -p "Sind noch zusätzliche Parameter gewünscht?: " extra
 
 if [ "$format" == "opus" ]
