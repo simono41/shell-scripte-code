@@ -14,11 +14,23 @@ convert_pass() {
     name=$1
     mapfile -t lines < <(pass show "$name")
     url=$(basename "$name")
-    username=$(echo "${lines[1]}" | sed 's/^.*: //')
+    username=$(basename "$name")  # Benutzername ist der Dateiname
     password=${lines[0]}
     folder=$(dirname "$name")
-    notes=$(printf "%s\n" "${lines[@]:2}")
-    echo "$folder,,login,$url,$notes,,$url,$username,$password," >> "$OUTPUT_FILE"
+    notes=""
+    totp=""
+
+    # Notizen und TOTP überprüfen
+    for line in "${lines[@]:1}"; do
+        if [[ $line == otpauth* ]]; then
+            totp=$line
+        else
+            notes+="$line\n"
+        fi
+    done
+
+    # CSV-Zeile hinzufügen
+    echo "$folder,,login,$url,$notes,,$folder,$username,$password,$totp" >> "$OUTPUT_FILE"
 }
 
 # Alle Passwortdateien finden und konvertieren
