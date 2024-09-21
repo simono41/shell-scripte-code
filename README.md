@@ -87,3 +87,8 @@ git reset --hard 8& git clean -dfx
 pacman -S qemu-user-static qemu-user-static-binfmt
 https://wiki.archlinux.org/title/QEMU#Chrooting_into_arm/arm64_environment_from_x86_64
 ~~~
+
+### Side Crowling on a etherpad-lite pad
+~~~
+cat urls | xargs -I+ wget --recursive '+/export/markdown' -erobots=off ; grep -r -o -E --no-filename 'pad.stratum0.org/p/dc[a-zA-Z0-9-]*' pad.stratum0.org >> urls; sort -u -o urls urls
+~~~
